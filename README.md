@@ -195,6 +195,13 @@ python cli.py
 
 Lance une boucle de questions/réponses stylisée — pose tes questions en français, l'API renvoie l'intent détecté, les entités extraites et un résumé du résultat. `/quit`, `/exit` ou `:q` pour sortir.
 
+| Démarrage | Requête trop complexe | Requête simple |
+|:---:|:---:|:---:|
+| ![Bannière d'accueil](assets/screenshots/screen1.png) | ![Erreur sur requête ambiguë](assets/screenshots/screen2.png) | ![Réponse réussie](assets/screenshots/screen3.png) |
+| Le CLI ouvre sur une bannière listant des exemples de questions et les commandes de sortie. | « Budget santé par habitants à Paris » mélange deux concepts (budget + démographie) — la détection d'intent choisit `demographie` à cause du mot « habitants », et le scraper plante. | « Budget santé à Paris » est sans ambiguïté — intent `budgets`, commune `Paris`, réponse propre. |
+
+> **Bon réflexe** — la pipeline est à base de règles (mots-clés), pas d'un LLM : elle marche d'autant mieux que la question est **courte et porte sur un seul concept à la fois**. En cas d'erreur ou d'intent mal deviné, simplifie la formulation et précise commune + année.
+
 ### Réparer le référentiel commune
 
 Si les noms de communes en base sont incohérents (`nom == code_insee`) ou si des SIRENs manquent, `repair_commune_referentiel` ([app/scrapers/ingestion.py](app/scrapers/ingestion.py)) patche tout en un appel à `geo.api.gouv.fr` (~8 s pour 35 000 communes) :
