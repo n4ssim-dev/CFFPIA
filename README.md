@@ -231,3 +231,7 @@ python -m pytest tests/ -k departement        # filtre par nom de test
 ## Licence
 
 MIT — Libre d'utilisation et de modification.
+
+---
+
+*Développé avec l'assistance de [Claude](https://claude.ai) (Anthropic).*
